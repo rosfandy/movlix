@@ -1,0 +1,144 @@
+@import "tailwindcss";
+
+@theme {
+  /* Colors */
+  --color-surface-dim: #131314;
+  --color-on-primary-container: #fff7f6;
+  --color-on-error: #690005;
+  --color-on-surface: #e5e2e3;
+  --color-on-error-container: #ffdad6;
+  --color-outline-variant: #5e3f3b;
+  --color-secondary: #c6c6c7;
+  --color-surface-container-low: #1c1b1c;
+  --color-surface-container-highest: #353436;
+  --color-on-tertiary-container: #fbf8f8;
+  --color-primary-fixed-dim: #ffb4aa;
+  --color-surface-variant: #353436;
+  --color-background: #131314;
+  --color-secondary-fixed: #e2e2e2;
+  --color-inverse-primary: #c0000c;
+  --color-on-tertiary-fixed-variant: #474747;
+  --color-error: #ffb4ab;
+  --color-on-secondary-fixed-variant: #454747;
+  --color-tertiary-container: #737272;
+  --color-inverse-surface: #e5e2e3;
+  --color-tertiary-fixed-dim: #c8c6c6;
+  --color-on-secondary-fixed: #1a1c1c;
+  --color-surface: #131314;
+  --color-on-tertiary: #303030;
+  --color-on-primary-fixed-variant: #930007;
+  --color-inverse-on-surface: #313031;
+  --color-surface-bright: #3a393a;
+  --color-surface-container-lowest: #0e0e0f;
+  --color-primary: #ffb4aa;
+  --color-primary-container: #e50914;
+  --color-secondary-fixed-dim: #c6c6c7;
+  --color-tertiary: #c8c6c6;
+  --color-surface-container-high: #2a2a2b;
+  --color-on-primary-fixed: #410001;
+  --color-surface-container: #201f20;
+  --color-on-secondary-container: #b4b5b5;
+  --color-tertiary-fixed: #e4e2e1;
+  --color-outline: #af8782;
+  --color-on-tertiary-fixed: #1b1c1c;
+  --color-on-secondary: #2f3131;
+  --color-on-surface-variant: #e9bcb6;
+  --color-on-background: #e5e2e3;
+  --color-error-container: #93000a;
+  --color-on-primary: #690003;
+  --color-primary-fixed: #ffdad5;
+  --color-secondary-container: #454747;
+  --color-surface-tint: #ffb4aa;
+
+  /* Border radius */
+  --radius-default: 0.125rem;
+  --radius-lg: 0.25rem;
+  --radius-xl: 0.5rem;
+  --radius-full: 0.75rem;
+
+  /* Spacing */
+  --spacing-card-gap: 16px;
+  --spacing-gutter: 24px;
+  --spacing-container-max: 1440px;
+  --spacing-row-gap: 48px;
+  --spacing-margin-mobile: 16px;
+  --spacing-margin-desktop: 60px;
+
+  /* Font families */
+  --font-body-lg: Inter;
+  --font-label-caps: Inter;
+  --font-display-hero-mobile: Montserrat;
+  --font-headline-md: Montserrat;
+  --font-headline-lg: Montserrat;
+  --font-body-md: Inter;
+  --font-headline-sm: Montserrat;
+  --font-display-hero: Montserrat;
+  --font-body-sm: Inter;
+
+  /* Font sizes */
+  --text-body-lg: 18px;
+  --text-body-lg--line-height: 1.6;
+  --text-label-caps: 12px;
+  --text-label-caps--line-height: 1;
+  --text-label-caps--letter-spacing: 0.1em;
+  --text-display-hero-mobile: 40px;
+  --text-display-hero-mobile--line-height: 1.2;
+  --text-display-hero-mobile--letter-spacing: -0.01em;
+  --text-headline-md: 24px;
+  --text-headline-md--line-height: 1.3;
+  --text-headline-lg: 32px;
+  --text-headline-lg--line-height: 1.2;
+  --text-body-md: 16px;
+  --text-body-md--line-height: 1.6;
+  --text-headline-sm: 20px;
+  --text-headline-sm--line-height: 1.4;
+  --text-display-hero: 64px;
+  --text-display-hero--line-height: 1.1;
+  --text-display-hero--letter-spacing: -0.02em;
+  --text-body-sm: 14px;
+  --text-body-sm--line-height: 1.5;
+}
+
+body {
+  background-color: #0A0A0B;
+  color: #e5e2e3;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+/* Custom utilities */
+.glass-panel {
+  backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.hero-gradient {
+  background: linear-gradient(to right, rgba(10, 10, 11, 0.95) 0%, rgba(10, 10, 11, 0.6) 30%, transparent 100%),
+    linear-gradient(to top, #0A0A0B 0%, transparent 30%);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.poster-card img {
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.poster-card:hover img {
+  transform: scale(1.08);
+  filter: brightness(0.7);
+}
+.poster-card .poster-overlay {
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.poster-card:hover .poster-overlay {
+  opacity: 1;
+}
