@@ -66,9 +66,9 @@ export function GenreMoviesPage() {
   return (
     <>
       <HeroCarousel items={heroItems} tag={genreName} />
-      <main className="max-w-[1400px] mx-auto px-6 pb-12">
-        <h1 className="font-headline-lg text-headline-lg text-white mb-10">{genreName} Movies</h1>
-        <div className="flex flex-wrap gap-2">
+      <main className="max-w-[1400px] mx-auto px-4 md:px-6 pb-12">
+        <h1 className="font-headline-sm md:font-headline-lg text-headline-sm md:text-headline-lg text-white mb-6 md:mb-10">{genreName} Movies</h1>
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-8 gap-2 md:gap-3">
           {movies.map((m: Movie) => (
             <MovieCard key={m.id} {...m} />
           ))}

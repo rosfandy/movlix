@@ -63,9 +63,9 @@ export function DiscoverPage({ mediaType, title, tag }: DiscoverPageProps) {
   return (
     <>
       <HeroCarousel items={heroItems} tag={tag} linkPrefix={mediaType === 'tv' ? '/series/' : '/movies/'} />
-      <main className="max-w-[1400px] mx-auto px-6 pt-8 pb-12">
-        <h1 className="font-headline-lg text-headline-lg text-white mb-10">{title}</h1>
-        <div className="flex flex-wrap gap-2">
+      <main className="max-w-[1400px] mx-auto px-4 md:px-6 pt-8 pb-12">
+        <h1 className="font-headline-sm md:font-headline-lg text-headline-sm md:text-headline-lg text-white mb-6 md:mb-10">{title}</h1>
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-8 gap-2 md:gap-3">
           {items.map((m: Movie) => (
             <MovieCard key={m.id} {...m} />
           ))}

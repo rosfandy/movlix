@@ -68,17 +68,17 @@ export function CommentsSection({ reviews, mediaType, mediaId }: CommentsSection
   }
 
   return (
-    <section className="px-margin-desktop py-row-gap max-w-5xl mx-auto">
-      <div className="flex items-center justify-between mb-6 border-b border-outline-variant/20 pb-4">
+    <section className="px-4 md:px-margin-desktop py-8 md:py-row-gap max-w-5xl mx-auto">
+      <div className="flex items-center justify-between mb-4 md:mb-6 border-b border-outline-variant/20 pb-3 md:pb-4">
         <div className="flex items-center gap-4">
-          <h2 className="font-headline-lg text-headline-lg">
-            Comments <span className="text-on-surface-variant text-sm ml-2">{allComments.length}</span>
+          <h2 className="font-headline-sm md:font-headline-lg text-headline-sm md:text-headline-lg">
+            Comments <span className="text-on-surface-variant text-xs md:text-sm ml-1 md:ml-2">{allComments.length}</span>
           </h2>
         </div>
       </div>
 
       {isLoggedIn ? (
-        <div className="w-full bg-surface-container border border-outline-variant/20 rounded-xl p-6 mb-12">
+        <div className="w-full bg-surface-container border border-outline-variant/20 rounded-xl p-4 md:p-6 mb-8 md:mb-12">
           <textarea
             value={comment}
             onChange={(e) => setComment(e.target.value)}
@@ -91,37 +91,37 @@ export function CommentsSection({ reviews, mediaType, mediaId }: CommentsSection
             <button
               onClick={handlePost}
               disabled={!comment.trim() || posting}
-              className="px-6 py-2 rounded-lg bg-primary text-on-primary font-bold text-sm disabled:opacity-40 disabled:cursor-not-allowed transition-opacity"
+              className="px-4 md:px-6 py-2 rounded-lg bg-primary text-on-primary font-bold text-xs md:text-sm disabled:opacity-40 disabled:cursor-not-allowed transition-opacity"
             >
               {posting ? 'Posting...' : 'Post'}
             </button>
           </div>
         </div>
       ) : (
-        <div className="w-full bg-surface-container border border-outline-variant/20 rounded-xl p-8 mb-12 text-center">
-          <p className="text-on-surface-variant">
+        <div className="w-full bg-surface-container border border-outline-variant/20 rounded-xl p-6 md:p-8 mb-8 md:mb-12 text-center">
+          <p className="text-sm md:text-body-md text-on-surface-variant">
             <button onClick={login} className="text-primary font-bold cursor-pointer hover:underline">Sign in</button> to post a comment
           </p>
         </div>
       )}
 
       {allComments.length > 0 ? (
-        <div className="space-y-10" data-purpose="comment-list">
+        <div className="space-y-6 md:space-y-10" data-purpose="comment-list">
           {allComments.map((c, i) => {
             const initial = c.author.charAt(0).toUpperCase()
             const bgColor = avatarBg[i % avatarBg.length]
             return (
-              <div key={i} className="space-y-6">
-                <div className="flex gap-4 relative">
+              <div key={i} className="space-y-4 md:space-y-6">
+                <div className="flex gap-3 md:gap-4 relative">
                   <div className="flex-shrink-0 z-10">
-                    <div className={`w-10 h-10 rounded-full overflow-hidden ${bgColor} flex items-center justify-center text-white font-bold`}>
+                    <div className={`w-8 h-8 md:w-10 md:h-10 rounded-full overflow-hidden ${bgColor} flex items-center justify-center text-white font-bold text-xs md:text-sm`}>
                       {initial}
                     </div>
                   </div>
-                  <div className="flex-1 min-w-0 space-y-2">
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <span className="font-bold text-sm truncate">{c.author}</span>
-                      <span className="text-xs text-on-surface-variant">@{c.author.toLowerCase().replace(/\s+/g, '')}</span>
+                  <div className="flex-1 min-w-0 space-y-1.5 md:space-y-2">
+                    <div className="flex items-center gap-1.5 md:gap-2 flex-wrap">
+                      <span className="font-bold text-xs md:text-sm truncate">{c.author}</span>
+                      <span className="text-[10px] md:text-xs text-on-surface-variant hidden sm:inline">@{c.author.toLowerCase().replace(/\s+/g, '')}</span>
                       <span className="text-xs text-on-surface-variant">
                         {c.created_at
                           ? (() => {
@@ -131,7 +131,7 @@ export function CommentsSection({ reviews, mediaType, mediaId }: CommentsSection
                           : ''}
                       </span>
                     </div>
-                    <p className={`text-body-sm text-white ${!expanded[i] ? 'line-clamp-3' : ''}`}>
+                    <p className={`text-xs md:text-body-sm text-white ${!expanded[i] ? 'line-clamp-3' : ''}`}>
                       {c.comment}
                     </p>
                     {c.comment.length > 200 && (
@@ -150,10 +150,10 @@ export function CommentsSection({ reviews, mediaType, mediaId }: CommentsSection
           })}
         </div>
       ) : (
-        <div className="flex flex-col items-center justify-center py-20 text-center opacity-40">
-          <span className="material-symbols-outlined text-6xl mb-4">forum</span>
-          <p className="font-headline-sm">No comments yet.</p>
-          <p className="text-body-md">Be the first to share your thoughts!</p>
+        <div className="flex flex-col items-center justify-center py-12 md:py-20 text-center opacity-40">
+          <span className="material-symbols-outlined text-4xl md:text-6xl mb-4">forum</span>
+          <p className="font-headline-sm text-sm md:text-headline-sm">No comments yet.</p>
+          <p className="text-body-xs md:text-body-md">Be the first to share your thoughts!</p>
         </div>
       )}
     </section>

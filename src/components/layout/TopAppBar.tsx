@@ -21,6 +21,7 @@ export function TopAppBar({ renderAccount, onSearchOpen }: TopAppBarProps) {
   const [menuOpen, setMenuOpen] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
   const panelRef = useRef<HTMLDivElement>(null)
+  const headerRef = useRef<HTMLElement>(null)
   const { isLoggedIn, logout } = useTmdbAuth()
 
   useEffect(() => {
@@ -37,11 +38,23 @@ export function TopAppBar({ renderAccount, onSearchOpen }: TopAppBarProps) {
     }
   }, [menuOpen])
 
+  useEffect(() => {
+    const header = headerRef.current
+    if (!header) return
+    gsap.set(header, { '--bg-opacity': 0, '--blur': '0px' })
+    const onScroll = () => {
+      const p = Math.min(window.scrollY / 80, 1)
+      gsap.to(header, { '--bg-opacity': p * 0.8, '--blur': `${p * 24}px`, duration: 0.1, overwrite: 'auto', ease: 'none' })
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
   return (
-    <header className="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-desktop py-4 bg-surface/80 backdrop-blur-xl">
+    <header ref={headerRef} className="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-mobile md:px-margin-desktop py-4" style={{ backgroundColor: 'rgba(19, 19, 20, var(--bg-opacity, 0))', backdropFilter: 'blur(var(--blur, 0px))' }}>
       <div className="flex items-center gap-8">
-        <Link to="/" className="font-headline-lg text-headline-lg font-black text-primary-container italic tracking-tighter">
-         MOVLIX 
+        <Link to="/" className="font-headline-lg text-headline-md md:text-headline-lg font-black text-primary-container italic tracking-tighter">
+          MOVLIX 
         </Link>
         <nav className="hidden md:flex items-center gap-6">
           {navItems.map((item) => (
@@ -57,7 +70,7 @@ export function TopAppBar({ renderAccount, onSearchOpen }: TopAppBarProps) {
         </nav>
       </div>
       <div className="flex items-center gap-6">
-        <button onClick={onSearchOpen} className="hidden md:inline-block text-on-surface transition-transform scale-95 active:scale-90 duration-300">
+        <button onClick={onSearchOpen} className="inline-block text-on-surface transition-transform scale-95 active:scale-90 duration-300">
           <span className="material-symbols-outlined">search</span>
         </button>
         <div className="hidden md:block">

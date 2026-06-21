@@ -21,7 +21,7 @@ export function MovieCard({
 }: MovieCardProps) {
   if (skeleton) {
     return (
-      <div className="flex-none w-[140px] md:w-[160px] animate-pulse">
+      <div className="w-full animate-pulse">
         <div className="aspect-[2/3] rounded-lg bg-surface-container-highest mb-3" />
         <div className="h-4 w-3/4 rounded bg-surface-container-highest" />
       </div>
@@ -29,7 +29,7 @@ export function MovieCard({
   }
 
   return (
-    <Link to={href!} className="poster-card group flex-none w-[140px] md:w-[160px] cursor-pointer">
+    <Link to={href!} className="poster-card group w-full cursor-pointer">
       <div className="relative aspect-[2/3] rounded-lg overflow-hidden bg-surface-container-highest mb-3">
         <img className="w-full h-full object-cover" src={imageSrc} alt={imageAlt} />
         {rating !== undefined && (

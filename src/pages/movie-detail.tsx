@@ -51,7 +51,7 @@ export function MovieDetailPage() {
     <>
       {playingTrailer && trailer ? (
         /* Trailer section — video fills width, stop button above YouTube timeline */
-        <section className="w-full bg-black pt-24">
+        <section className="w-full bg-black pt-24 md:pt-24">
           <div className="aspect-video w-full max-h-[80vh] mx-auto relative">
             <iframe
               className="absolute inset-0 w-full h-full"
@@ -71,7 +71,7 @@ export function MovieDetailPage() {
         </section>
       ) : (
         /* Hero Section */
-        <section className="relative w-full min-h-[600px] flex items-end pt-24">
+        <section className="relative w-full h-[600px] md:min-h-[400px] flex items-center sm:items-end pt-72 md:pt-24">
           <div className="absolute inset-0 z-0">
             <div
               className="w-full h-full bg-cover bg-center"
@@ -79,51 +79,54 @@ export function MovieDetailPage() {
             />
             <div className="absolute inset-0 hero-gradient" />
           </div>
-          <div className="relative z-10 px-margin-desktop pb-16 max-w-3xl">
+          <div className="relative z-10 px-4 md:px-margin-desktop pb-16 max-w-3xl">
             {runtime && (
-              <span className="inline-block px-3 py-1 bg-primary-container text-on-primary-container font-label-caps text-label-caps mb-4 rounded-sm">
+              <span className="inline-block px-2 py-0.5 md:px-3 md:py-1 bg-primary-container text-on-primary-container font-label-caps text-[10px] md:text-label-caps mb-2 md:mb-4 rounded-sm">
                 MOVIE
               </span>
             )}
-            <h1 className="font-display-hero text-display-hero mb-2 uppercase tracking-tight">{detail.title.toUpperCase()}</h1>
+            <h1 className="font-display-hero text-xl sm:text-display-hero-mobile md:text-display-hero mb-2 uppercase tracking-tight">{detail.title.toUpperCase()}</h1>
             {detail.release_date && (
-              <p className="font-headline-sm text-headline-sm text-primary-container mb-4">{detail.release_date.slice(0, 4)}</p>
+              <p className="font-headline-sm text-xs md:text-headline-sm text-primary-container mb-3 md:mb-4">{detail.release_date.slice(0, 4)}</p>
             )}
-            <div className="flex items-center gap-4 mb-6 flex-wrap">
-              <span className="glass-panel px-3 py-1 rounded text-body-sm font-bold flex items-center gap-1">
-                <span className="material-symbols-outlined text-primary text-[18px]" style={{ fontVariationSettings: "'FILL' 1" }}>
+            <div className="flex items-center gap-2 md:gap-4 mb-4 md:mb-6 flex-wrap">
+              <span className="glass-panel px-2 md:px-3 py-1 rounded text-xs md:text-body-sm font-bold flex items-center gap-1">
+                <span className="material-symbols-outlined text-primary text-[14px] md:text-[18px]" style={{ fontVariationSettings: "'FILL' 1" }}>
                   star
                 </span>
                 {mapped.rating}
               </span>
-              {runtime && <span className="text-on-surface-variant font-label-caps text-label-caps">{runtime}</span>}
-              {genres && <span className="text-on-surface-variant font-label-caps text-label-caps">• {genres}</span>}
+              {runtime && <span className="text-on-surface-variant font-label-caps text-[10px] md:text-label-caps">{runtime}</span>}
+              {genres && <span className="text-on-surface-variant font-label-caps text-[10px] md:text-label-caps">• {genres}</span>}
             </div>
-            {cast.length > 0 && (
-              <p className="text-body-sm text-on-surface mb-2">
-                <span className="text-on-surface-variant">Starring </span>{cast.join(', ')}
-              </p>
-            )}
-            <p className="font-body-lg text-body-lg text-on-surface-variant mb-8 line-clamp-3">{detail.overview}</p>
-            <div className="flex items-center gap-4">
+            
+            <p className="font-body-sm md:font-body-lg text-body-sm md:text-body-lg text-on-surface-variant mb-6 md:mb-8 line-clamp-3">{detail.overview}</p>
+            <div className="flex items-center gap-2 md:gap-4 mb-4">
               <button
                 onClick={() => setPlayingTrailer(true)}
                 disabled={!trailer}
-                className="bg-primary-container hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed text-white px-8 py-3 rounded-xl font-headline-sm flex items-center gap-3 transition-transform active:scale-95 shadow-xl shadow-red-900/20"
+                className="bg-primary-container hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed text-white px-4 md:px-8 py-1.5 
+                  md:py-3 rounded-xl font-headline-sm text-xs md:text-base flex items-center gap-1.5 md:gap-3 transition-transform 
+                  active:scale-95 shadow-xl shadow-red-900/20"
               >
-                <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>
+                <span className="material-symbols-outlined text-[16px] md:text-[24px]" style={{ fontVariationSettings: "'FILL' 1" }}>
                   play_arrow
                 </span>
                 {trailer ? 'Watch Trailer' : 'No Trailer'}
               </button>
-              <FavoriteButton mediaType="movie" mediaId={movieId} className="bg-white/10 hover:bg-white/20 text-white px-4 py-3 rounded-xl" />
+              <FavoriteButton mediaType="movie" mediaId={movieId} className="bg-white/10 hover:bg-white/20 text-white px-3 md:px-4 py-1.5 md:py-3 rounded-xl text-xs md:text-base" />
             </div>
+            {cast.length > 0 && (
+              <p className="text-[11px] md:text-body-sm text-on-surface mb-1.5 md:mb-2">
+                <span className="text-on-surface-variant">Starring </span>{cast.join(', ')}
+              </p>
+            )}
           </div>
         </section>
       )}
 
       {/* More Like This */}
-      <section className="px-margin-desktop py-row-gap bg-surface-container-lowest">
+      <section className="px-4 md:px-margin-desktop py-row-gap bg-surface-container-lowest">
         <ContentRow title="More Like This" showViewAll={false}>
           {similar.map((m: Movie) => (
             <MovieCard key={m.id} {...m} />

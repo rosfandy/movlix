@@ -34,7 +34,7 @@ export function HomePage() {
     <>
       <HeroCarousel items={carouselItems} />
 
-      <div className="space-y-row-gap py-12 px-margin-desktop">
+      <div className="space-y-row-gap py-12 px-4 md:px-margin-desktop">
         <TrendingNow />
       </div>
     </>
