@@ -13,7 +13,7 @@ export const TMDB_ACCESS_TOKEN = import.meta.env.VITE_TMDB_ACCESS_TOKEN
 const tmdb = axios.create({ baseURL: TMDB_BASE_URL })
 export { tmdb }
 
-export const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
+export const slugify = (s: string | undefined) => (s ?? '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
 
 export const tmdbV4 = axios.create({ baseURL: TMDB_V4_BASE_URL })
 
