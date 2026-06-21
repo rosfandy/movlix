@@ -21,8 +21,12 @@ jobs:
       - uses: oven-sh/setup-bun@v2
       - run: bun install
       - run: |
-          echo "VITE_TMDB_API_KEY=${{ secrets.TMDB_API_KEY }}" >> .env
-          echo "VITE_TMDB_ACCESS_TOKEN=${{ secrets.TMDB_ACCESS_TOKEN }}" >> .env
+          : "${TMDB_API_KEY:?Secret TMDB_API_KEY not set}"  # fail if empty
+          echo "VITE_TMDB_API_KEY=$TMDB_API_KEY" >> .env
+          echo "VITE_TMDB_ACCESS_TOKEN=$TMDB_ACCESS_TOKEN" >> .env
+        env:
+          TMDB_API_KEY: ${{ secrets.TMDB_API_KEY }}
+          TMDB_ACCESS_TOKEN: ${{ secrets.TMDB_ACCESS_TOKEN }}
       - run: bun run build
       # SPA fallback: serve index.html for any 404 (client-side routing)
       - run: cp dist/index.html dist/404.html
