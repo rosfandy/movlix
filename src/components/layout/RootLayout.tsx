@@ -1,9 +1,11 @@
 import { useState, useEffect, type ReactNode } from 'react'
+import { useLocation } from '@tanstack/react-router'
 import { TopAppBar } from '@/components/layout/TopAppBar'
 import { BottomNavBar } from '@/components/layout/BottomNavBar'
 import { AccountMenu } from '@/components/fragment/AccountMenu'
 import { SearchOverlay } from '@/components/fragment/SearchOverlay'
 import { Toaster, toast } from 'sonner'
+import gsap from 'gsap'
 
 interface RootLayoutProps {
   children: ReactNode
@@ -11,6 +13,12 @@ interface RootLayoutProps {
 
 export function RootLayout({ children }: RootLayoutProps) {
   const [searchOpen, setSearchOpen] = useState(false)
+  const { pathname } = useLocation()
+
+  useEffect(() => {
+    const obj = { y: window.scrollY }
+    gsap.to(obj, { y: 0, duration: 0.5, ease: 'power2.out', onUpdate: () => window.scrollTo(0, obj.y) })
+  }, [pathname])
 
   useEffect(() => {
     if (localStorage.getItem('login_toast')) {
