@@ -22,6 +22,9 @@ jobs:
       - run: VITE_TMDB_API_KEY=${{ secrets.TMDB_API_KEY }} VITE_TMDB_ACCESS_TOKEN=${{ secrets.TMDB_ACCESS_TOKEN }} bun run build
       # SPA fallback: serve index.html for any 404 (client-side routing)
       - run: cp dist/index.html dist/404.html
+      - run: |
+          gh api repos/${{ github.repository }}/actions/artifacts --jq '.artifacts[] | select(.name=="github-pages") | .id' 2>/dev/null \
+          | xargs -I{} gh api -X DELETE repos/${{ github.repository }}/actions/artifacts/{} 2>/dev/null || true
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
