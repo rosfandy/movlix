@@ -12,6 +12,8 @@ dist
 opencode.json
 .opencode.removed
 .tanstack.removed
+.opencode
+.tanstack
 
 # OS
 .DS_Store
