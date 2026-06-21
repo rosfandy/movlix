@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link } from '@tanstack/react-router'
 import { useCountries } from '@/features/countries/hook/useCountries'
+import { Loading } from '@/components/ui/Loading'
 
 export function CountriesPage() {
   const { data: countries = [], isLoading, error } = useCountries()
@@ -40,7 +41,7 @@ export function CountriesPage() {
       </div>
 
       {isLoading ? (
-        <div className="p-8 text-on-surface-variant">Loading...</div>
+        <Loading className="p-8" />
       ) : filtered.length === 0 ? (
         <p className="text-gray-500">No countries found for "{query}".</p>
       ) : (

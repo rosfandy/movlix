@@ -6,9 +6,11 @@ import { useQuery } from '@tanstack/react-query'
 import { ContentRow } from '@/components/fragment/ContentRow'
 import { CommentsSection } from '@/components/fragment/CommentsSection'
 import { MovieCard } from '@/components/ui/MovieCard'
+import { Loading } from '@/components/ui/Loading'
 import { useTvDetail } from '@/features/detail/hook/useTvDetail'
 import { fetchTmdb } from '@/config/tmdb'
 import type { Movie } from '@/features/movies/types'
+import { FavoriteButton } from '@/components/ui/FavoriteButton'
 
 export function TvDetailPage() {
   const { slug } = useParams({ from: '/series/$slug' })
@@ -41,7 +43,7 @@ export function TvDetailPage() {
     )
   }
   if (resolvingSlug || detailLoading || !detail) {
-    return <div className="pt-24 p-8 text-on-surface-variant text-center">Loading...</div>
+    return <Loading fullPage />
   }
 
   const year = detail.first_air_date?.slice(0, 4)
@@ -70,7 +72,7 @@ export function TvDetailPage() {
           </div>
         </section>
       ) : (
-        <section className="relative w-full min-h-dvh md:min-h-[600px] flex items-center sm:items-end pt-4 md:pt-24">
+        <section className="relative w-full h-[500px] md:min-h-[600px] flex items-center sm:items-end pt-62 md:pt-24">
           <div className="absolute inset-0 z-0">
             <div
               className="w-full h-full bg-cover bg-center"
@@ -102,24 +104,27 @@ export function TvDetailPage() {
               </p>
             )}
             <p className="font-body-sm md:font-body-lg text-body-sm md:text-body-lg text-on-surface-variant mb-6 md:mb-8 line-clamp-3">{detail.overview}</p>
-            <div className="flex items-center gap-2 md:gap-4">
+            <div className="flex items-center gap-2 md:gap-4 mb-4">
               <button
                 onClick={() => setPlayingTrailer(true)}
                 disabled={!trailer}
-                className="bg-primary-container hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed text-white px-4 md:px-8 py-1.5 md:py-3 rounded-xl font-headline-sm text-xs md:text-base flex items-center gap-1.5 md:gap-3 transition-transform active:scale-95 shadow-xl shadow-red-900/20"
+                className="bg-primary-container hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed text-white px-4 md:px-8 py-1.5 
+                  md:py-3 rounded-xl font-headline-sm text-xs md:text-base flex items-center gap-1.5 md:gap-3 transition-transform 
+                  active:scale-95 shadow-xl shadow-red-900/20"
               >
                 <span className="material-symbols-outlined text-[16px] md:text-[24px]" style={{ fontVariationSettings: "'FILL' 1" }}>
                   play_arrow
                 </span>
                 {trailer ? 'Watch Trailer' : 'No Trailer'}
               </button>
+              <FavoriteButton mediaType="tv" mediaId={showId} className="bg-white/10 hover:bg-white/20 text-white px-3 md:px-4 py-1.5 md:py-3 rounded-xl text-xs md:text-base" />
             </div>
           </div>
         </section>
       )}
 
       {/* More Like This */}
-      <section className="px-margin-desktop py-row-gap bg-surface-container-lowest">
+      <section className="px-4 md:px-margin-desktop py-row-gap bg-surface-container-lowest">
         <ContentRow title="More Like This" showViewAll={false}>
           {similar.map((s: Movie) => (
             <MovieCard key={s.id} {...s} />

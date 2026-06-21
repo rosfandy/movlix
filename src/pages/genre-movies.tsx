@@ -6,6 +6,7 @@ import { useGenreMovies } from '@/features/genres/hook/useGenreMovies'
 import { useGenres } from '@/features/genres/hook/useGenres'
 import { HeroCarousel } from '@/components/fragment/HeroCarousel'
 import { MovieCard } from '@/components/ui/MovieCard'
+import { Loading } from '@/components/ui/Loading'
 import type { Movie } from '@/features/movies/types'
 
 const HERO_COUNT = 7
@@ -39,11 +40,7 @@ export function GenreMoviesPage() {
   }, [hasNextPage, isFetchingNextPage, fetchNextPage])
 
   if (isLoading) {
-    return (
-      <div className="flex items-center justify-center min-h-[60vh]">
-        <div className="p-8 text-on-surface-variant">Loading...</div>
-      </div>
-    )
+    return <Loading className="min-h-[60vh]" />
   }
 
   if (error) {

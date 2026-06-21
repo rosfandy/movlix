@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { HeroCarousel } from '@/components/fragment/HeroCarousel'
 import { TrendingNow } from '@/features/home/components/TrendingNow'
 import { useTrendingMovies, type Movie } from '@/features/home/hook/useTrendingMovies'
+import { Loading } from '@/components/ui/Loading'
 
 export function HomePage() {
   const { movies: heroMovies, isLoading, error } = useTrendingMovies('movie')
@@ -19,7 +20,7 @@ export function HomePage() {
       </div>
     )
   }
-  if (isLoading) return <div className="p-8 text-on-surface-variant">Loading...</div>
+  if (isLoading) return <Loading className="p-8" />
 
   const carouselItems = heroMovies.map((m: Movie) => ({
     id: m.id,

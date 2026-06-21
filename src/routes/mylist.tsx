@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { createFileRoute } from '@tanstack/react-router'
 import { Link } from '@tanstack/react-router'
 import { useQueryClient } from '@tanstack/react-query'
@@ -5,17 +6,26 @@ import { useTmdbAuth } from '@/features/auth/hook/useTmdbAuth'
 import { markFavorite } from '@/features/favorites/hook/useFavoritesData'
 import { TMDB_IMAGE_BASE, slugify } from '@/config/tmdb'
 import { useFavorites } from '@/features/favorites/hook/useFavorites'
-
 export const Route = createFileRoute('/mylist')({
   component: MyListPage,
 })
 
 function MyListPage() {
+  const [sort, setSort] = useState('date')
   const { isLoggedIn, login } = useTmdbAuth()
   const qc = useQueryClient()
   const { data: favorites = [] } = useFavorites()
-  const movies = favorites.filter((f) => f.media_type === 'movie')
-  const tvShows = favorites.filter((f) => f.media_type === 'tv')
+  // ponytail: API returns date-added order already; only re-sort when a different option is chosen
+  const movies = sort === 'rating'
+    ? [...favorites.filter((f) => f.media_type === 'movie')].sort((a, b) => b.vote_average - a.vote_average)
+    : sort === 'alpha'
+    ? [...favorites.filter((f) => f.media_type === 'movie')].sort((a, b) => (a.title || a.name || '').localeCompare(b.title || b.name || ''))
+    : favorites.filter((f) => f.media_type === 'movie')
+  const tvShows = sort === 'rating'
+    ? [...favorites.filter((f) => f.media_type === 'tv')].sort((a, b) => b.vote_average - a.vote_average)
+    : sort === 'alpha'
+    ? [...favorites.filter((f) => f.media_type === 'tv')].sort((a, b) => (a.title || a.name || '').localeCompare(b.title || b.name || ''))
+    : favorites.filter((f) => f.media_type === 'tv')
 
   const unfav = async (mediaId: number, mediaType: 'movie' | 'tv') => {
     const sid = localStorage.getItem('tmdb_session_id')
@@ -56,10 +66,10 @@ function MyListPage() {
         </div>
         <div className="flex items-center gap-4 w-full md:w-auto">
           <div className="relative group flex-1 md:flex-none">
-            <select className="appearance-none bg-surface-container-low border border-white/10 text-on-surface font-body-sm text-body-sm px-6 py-3 pr-12 rounded-lg cursor-pointer hover:border-primary transition-all focus:ring-2 focus:ring-primary/20 w-full md:w-48">
-              <option>Date Added</option>
-              <option>Rating</option>
-              <option>A-Z</option>
+            <select value={sort} onChange={(e) => setSort(e.target.value)} className="appearance-none bg-surface-container-low border border-white/10 text-on-surface font-body-sm text-body-sm px-6 py-3 pr-12 rounded-lg cursor-pointer hover:border-primary transition-all focus:ring-2 focus:ring-primary/20 w-full md:w-48">
+              <option value="date">Date Added</option>
+              <option value="rating">Rating</option>
+              <option value="alpha">A-Z</option>
             </select>
             <span className="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant">expand_more</span>
           </div>

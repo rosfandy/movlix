@@ -4,6 +4,7 @@ import { useRef, useEffect } from 'react'
 import { useDiscover } from '@/features/discover/hook/useDiscover'
 import { HeroCarousel } from '@/components/fragment/HeroCarousel'
 import { MovieCard } from '@/components/ui/MovieCard'
+import { Loading } from '@/components/ui/Loading'
 import type { Movie } from '@/features/movies/types'
 
 interface DiscoverPageProps {
@@ -36,11 +37,7 @@ export function DiscoverPage({ mediaType, title, tag }: DiscoverPageProps) {
   }, [hasNextPage, isFetchingNextPage, fetchNextPage])
 
   if (isLoading) {
-    return (
-      <div className="flex items-center justify-center min-h-[60vh]">
-        <div className="p-8 text-on-surface-variant">Loading...</div>
-      </div>
-    )
+    return <Loading className="min-h-[60vh]" />
   }
 
   if (error) {

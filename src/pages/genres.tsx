@@ -3,6 +3,7 @@
 import { useEffect } from 'react'
 import { Link } from '@tanstack/react-router'
 import { useGenres } from '@/features/genres/hook/useGenres'
+import { Loading } from '@/components/ui/Loading'
 
 export function GenresPage() {
   const { genres, isLoading, error } = useGenres()
@@ -18,7 +19,7 @@ export function GenresPage() {
   }
 
   if (isLoading) {
-    return <div className="p-8 text-on-surface-variant">Loading...</div>
+    return <Loading className="p-8" />
   }
 
   return (

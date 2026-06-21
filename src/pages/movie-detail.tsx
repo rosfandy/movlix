@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 import { ContentRow } from '@/components/fragment/ContentRow'
 import { CommentsSection } from '@/components/fragment/CommentsSection'
 import { MovieCard } from '@/components/ui/MovieCard'
+import { Loading } from '@/components/ui/Loading'
 import { FavoriteButton } from '@/components/ui/FavoriteButton'
 import { mapMovie, fetchTmdb } from '@/config/tmdb'
 import type { Movie } from '@/features/movies/types'
@@ -40,7 +41,7 @@ export function MovieDetailPage() {
     )
   }
   if (resolvingSlug || detailLoading || !detail) {
-    return <div className="pt-24 p-8 text-on-surface-variant text-center">Loading...</div>
+    return <Loading fullPage />
   }
 
   const mapped = mapMovie(detail)
@@ -71,7 +72,7 @@ export function MovieDetailPage() {
         </section>
       ) : (
         /* Hero Section */
-        <section className="relative w-full h-[600px] md:min-h-[400px] flex items-center sm:items-end pt-72 md:pt-24">
+        <section className="relative w-full h-[500px] md:min-h-[700px] flex items-center sm:items-end pt-62 md:pt-32">
           <div className="absolute inset-0 z-0">
             <div
               className="w-full h-full bg-cover bg-center"
@@ -91,7 +92,7 @@ export function MovieDetailPage() {
             )}
             <div className="flex items-center gap-2 md:gap-4 mb-4 md:mb-6 flex-wrap">
               <span className="glass-panel px-2 md:px-3 py-1 rounded text-xs md:text-body-sm font-bold flex items-center gap-1">
-                <span className="material-symbols-outlined text-primary text-[14px] md:text-[18px]" style={{ fontVariationSettings: "'FILL' 1" }}>
+                <span className="material-symbols-outlined text-primary text-[12px]! md:text-[18px]" style={{ fontVariationSettings: "'FILL' 1" }}>
                   star
                 </span>
                 {mapped.rating}
@@ -100,7 +101,7 @@ export function MovieDetailPage() {
               {genres && <span className="text-on-surface-variant font-label-caps text-[10px] md:text-label-caps">• {genres}</span>}
             </div>
             
-            <p className="font-body-sm md:font-body-lg text-body-sm md:text-body-lg text-on-surface-variant mb-6 md:mb-8 line-clamp-3">{detail.overview}</p>
+            <p className="font-body-sm md:font-body-lg text-xs md:text-body-lg text-on-surface-variant mb-6 md:mb-8 line-clamp-3">{detail.overview}</p>
             <div className="flex items-center gap-2 md:gap-4 mb-4">
               <button
                 onClick={() => setPlayingTrailer(true)}
