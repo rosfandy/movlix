@@ -10,6 +10,8 @@ dist
 .idea
 *.sw?
 opencode.json
+.opencode.removed
+.tanstack.removed
 
 # OS
 .DS_Store
