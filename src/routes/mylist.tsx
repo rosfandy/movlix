@@ -49,7 +49,7 @@ function MyListPage() {
     <div className="pt-32 min-h-screen px-margin-mobile md:px-margin-desktop pb-row-gap">
       <section className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-12">
         <div className="space-y-2">
-          <h2 className="font-headline-lg text-headline-lg md:text-display-hero text-white tracking-tight">Your Favorites</h2>
+          <h2 className="font-headline-lg text-headline-md md:text-[32px] text-white tracking-tight">Your Favorites</h2>
           <p className="font-body-md text-body-md text-on-surface-variant flex items-center gap-2">
             <span className="text-primary font-bold">{favorites.length}</span> movies saved
           </p>

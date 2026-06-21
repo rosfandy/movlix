@@ -4,7 +4,7 @@ import tailwindcss from '@tailwindcss/vite'
 import path from 'path'
 
 export default defineConfig({
-  base: '/',
+  base: '/movlix/',
   plugins: [react(), tailwindcss()],
   server: {
     port: 5173,
