@@ -15,7 +15,7 @@ export { tmdb }
 
 export const slugify = (s: string | undefined) => (s ?? '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
 
-export const tmdbV4 = axios.create({ baseURL: TMDB_V4_BASE_URL })
+export const tmdbV4 = axios.create({ baseURL: TMDB_V4_BASE_URL, params: { api_key: TMDB_API_KEY } })
 
 export async function fetchTmdb<T = any>(path: string, params?: Record<string, any>): Promise<T> {
   if (!TMDB_API_KEY) throw new Error('VITE_TMDB_API_KEY missing')
