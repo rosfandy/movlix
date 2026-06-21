@@ -46,7 +46,7 @@ export function useTmdbAuth() {
     setLoading(true)
     try {
       const { request_token } = await fetchRequestToken()
-      const cb = encodeURIComponent(`${window.location.origin}/auth/callback`)
+      const cb = encodeURIComponent(`${window.location.origin}${import.meta.env.BASE_URL}auth/callback`)
       window.location.href = `https://www.themoviedb.org/authenticate/${request_token}?redirect_to=${cb}`
     } catch {
       setLoading(false)

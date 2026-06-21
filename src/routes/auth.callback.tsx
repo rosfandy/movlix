@@ -22,7 +22,7 @@ function CallbackPage() {
             localStorage.setItem('tmdb_username', account.username)
             localStorage.setItem('tmdb_account_id', String(account.id))
             localStorage.setItem('login_toast', 'true')
-            window.location.href = '/'
+            window.location.href = import.meta.env.BASE_URL
           } else {
             setError('session_id kosong dari TMDB')
           }
@@ -31,7 +31,7 @@ function CallbackPage() {
           setError(err instanceof Error ? err.message : 'Failed to create session')
         })
     } else {
-      window.location.href = '/'
+      window.location.href = import.meta.env.BASE_URL
     }
   }, [])
 
